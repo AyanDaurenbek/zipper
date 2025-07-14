@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Code}} — {{.Title}}</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 4rem;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            font-size: 4rem;
+            color: #d33;
+        }
+        p {
+            font-size: 1.3rem;
+            margin-top: 1rem;
+            color: #555;
+        }
+        a {
+            margin-top: 2rem;
+            display: inline-block;
+            padding: 0.6rem 1rem;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{.Code}} — {{.Title}}</h1>
+    <p>{{.Message}}</p>
+    <a href="/">⬅ Вернуться на главную</a>
+</body>
+</html>

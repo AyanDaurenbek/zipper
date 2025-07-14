@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Архиватор</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 2rem auto;
+            max-width: 700px;
+            background: #f7f7f7;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        button {
+            padding: 0.5rem 1.2rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Архиватор</h1>
+    <form method="post" action="/task/create">
+        <button type="submit">Создать новую задачу</button>
+    </form>
+
+    <h2>Ваши задачи</h2>
+    <ul>
+        {{range $id, $task := .}}
+            <li>
+                <strong>ID:</strong> <a href="/task/{{$task.ID}}">{{$task.ID}}</a> |
+                <strong>Статус:</strong> {{$task.Status}}
+                {{if eq $task.Status "completed"}}
+                    | <a href="{{$task.Archive}}">⬇ Скачать архив</a>
+                {{end}}
+            </li>
+        {{else}}
+            <li>Нет активных задач</li>
+        {{end}}
+    </ul>
+</body>
+</html>

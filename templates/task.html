@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача {{.ID}}</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 2rem auto;
+            max-width: 700px;
+            background: #f7f7f7;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 0.5rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1f8831;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .error {
+            color: #dc3545;
+        }
+        .success {
+            color: #28a745;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back {
+            display: inline-block;
+            margin-top: 1.5rem;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Задача #{{.ID}}</h1>
+    <p><strong>Статус:</strong> {{.Status}}</p>
+
+    {{if eq .Status "completed"}}
+        <p class="success">Архив готов: <a href="{{.Archive}}">⬇ Скачать архив</a></p>
+    {{end}}
+
+    {{if .Errors}}
+        <h3 class="error">Ошибки загрузки:</h3>
+        <ul>
+        {{range .Errors}}
+            <li class="error">{{.}}</li>
+        {{end}}
+        </ul>
+    {{end}}
+
+    {{if and (eq .Status "pending") (lt (len .Links) 3)}}
+        <form method="post">
+            <input type="text" name="link" placeholder="https://example.com/file.pdf" required>
+            <button type="submit">Добавить ссылку</button>
+        </form>
+    {{end}}
+
+    <h3>Добавленные ссылки:</h3>
+    <ul>
+        {{range .Links}}
+            <li>{{.}}</li>
+        {{else}}
+            <li>Пока ничего не добавлено</li>
+        {{end}}
+    </ul>
+
+    <div class="back">
+        <a href="/">← Вернуться назад</a>
