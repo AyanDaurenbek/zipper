@@ -7,6 +7,10 @@ import (
 )
 
 func main() {
+	if os.MkdirAll("static/archives", os.ModePerm) != nil {
+		log.Fatal("Не удалось создать папку static/archives:")
+	}
+	
 	manager := internal.NewTaskManager()
 
 	http.HandleFunc("/", manager.HandleHome)
